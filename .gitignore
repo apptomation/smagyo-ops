@@ -5,3 +5,5 @@ target/
 .idea/
 *.iml
 .DS_Store
+application-uat.yaml
+application-prod.yaml
