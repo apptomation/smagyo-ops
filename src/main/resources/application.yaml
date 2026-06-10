@@ -1,0 +1,46 @@
+# ── Server ────────────────────────────────────────────────
+server:
+  port: 8080
+
+# ── Database ──────────────────────────────────────────────
+# Override with env vars in production: DB_URL, DB_USERNAME, DB_PASSWORD
+spring:
+  application:
+    name: smagyo
+  profiles:
+    active: uat
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/smagyo}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123456789}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # ── JPA / Hibernate ───────────────────────────────────────
+  # use "validate" in production after first run
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# ── JWT ──────────────────────────────────────────────────
+# Secret must be ≥ 256-bit (32 chars). Set JWT_SECRET env var in production.
+jwt:
+  secret: ${JWT_SECRET:SmagyoSecretKey2026SmagyoSecretKey2026SmagyoKey!!}
+  # 24 hours in milliseconds
+  expiration-ms: ${JWT_EXPIRATION:86400000}
+
+# ── CORS ─────────────────────────────────────────────────
+# React dev server. Add production domain with comma separation.
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+
+# ── Logging ───────────────────────────────────────────────
+logging:
+  level:
+    com.smagyo: DEBUG
+    org.springframework.security: DEBUG
+
